@@ -9,14 +9,18 @@
         private string permissions;
 
         // Manager constructor inherits from Employee
-        public Manager(int employeeId, string firstName, string lastName, int weekHrs, bool taxWithThresholdFlag) : base(employeeId, firstName, lastName, weekHrs, taxWithThresholdFlag)
+        public Manager(int employeeId, string firstName, string lastName, int hrlyRate, string taxWithThresholdFlag, string permissions) : base(employeeId, firstName, lastName, hrlyRate, taxWithThresholdFlag)
         {
             this.EmployeeId = employeeId;
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.WeekHrs = weekHrs;
+            this.HrlyRate = hrlyRate;
             this.TaxWithThresholdFlag = taxWithThresholdFlag;
+            this.Permissions = permissions;
 
         }
+
+
+        public string Permissions { get => permissions; set => permissions = value; }
     }
 }

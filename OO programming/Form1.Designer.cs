@@ -70,7 +70,7 @@ namespace OO_programming
             this.btnCalcPay.TabIndex = 4;
             this.btnCalcPay.Text = "Calculate";
             this.btnCalcPay.UseVisualStyleBackColor = true;
-            this.btnCalcPay.Click += new System.EventHandler(this.button1_Click);
+            this.btnCalcPay.Click += new System.EventHandler(this.btnCalcPay_Click);
             // 
             // groupBox1
             // 
@@ -119,7 +119,7 @@ namespace OO_programming
             this.btnSavePaySummary.Text = "Save";
             this.btnSavePaySummary.UseVisualStyleBackColor = true;
             this.btnSavePaySummary.Visible = false;
-            this.btnSavePaySummary.Click += new System.EventHandler(this.button2_Click);
+            this.btnSavePaySummary.Click += new System.EventHandler(this.btnSavePaySummary_Click);
             // 
             // tbPaymentSummary
             // 
@@ -130,7 +130,6 @@ namespace OO_programming
             this.tbPaymentSummary.ReadOnly = true;
             this.tbPaymentSummary.Size = new System.Drawing.Size(349, 395);
             this.tbPaymentSummary.TabIndex = 0;
-            this.tbPaymentSummary.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // frmPayCalc
             // 

@@ -8,7 +8,7 @@ namespace OO_programming
     public class PaySlip
     {
         private Employee employee;
-        private int weekHours;
+        private int hrsWorked;
         private int weekNumber;
         private Employee submittedBy;
         private DateTime submittedDate;
@@ -20,27 +20,35 @@ namespace OO_programming
         private decimal superCalculated;
         private decimal payNetCalculated;
 
-        public PaySlip(Employee employee, int weekHours, int weekNumber, Employee submittedBy, DateTime submittedDate, DateTime submittedTime, Manager approvedBy, DateTime approvedDate, decimal payGrossCalculated, decimal taxCalculated, decimal superCalculated, decimal payNetCalculated)
-        {
-            this.employee = employee;
-            this.weekHours = weekHours;
-            this.weekNumber = weekNumber;
-            this.submittedBy = submittedBy;
-            this.submittedDate = submittedDate;
-            this.submittedTime = submittedTime;
-            this.approvedBy = approvedBy;
-            this.approvedDate = approvedDate;
-            this.payGrossCalculated = payGrossCalculated;
-            this.taxCalculated = taxCalculated;
-            this.superCalculated = superCalculated;
-            this.payNetCalculated = payNetCalculated;
-        }
 
-        public PaySlip paySlipDetails()
+
+        public Employee Employee { get => employee; set => employee = value; }
+        public int HrsWorked { get => hrsWorked; set => hrsWorked = value; }
+        public int WeekNumber { get => weekNumber; set => weekNumber = value; }
+        public Employee SubmittedBy { get => submittedBy; set => submittedBy = value; }
+        public DateTime SubmittedDate { get => submittedDate; set => submittedDate = value; }
+        public DateTime SubmittedTime { get => submittedTime; set => submittedTime = value; }
+        public Manager ApprovedBy { get => approvedBy; set => approvedBy = value; }
+        public DateTime ApprovedDate { get => approvedDate; set => approvedDate = value; }
+        public decimal PayGrossCalculated { get => payGrossCalculated; set => payGrossCalculated = value; }
+        public decimal TaxCalculated { get => taxCalculated; set => taxCalculated = value; }
+        public decimal SuperCalculated { get => superCalculated; set => superCalculated = value; }
+        public decimal PayNetCalculated { get => payNetCalculated; set => payNetCalculated = value; }
+
+        public string PaySummary()
         {
-            return this;
+            string detail = employee.ToString() + ":\r\n" +
+                "Hrs Worked: " + hrsWorked + "\r\n" +
+                "Hourly Rate: " + employee.HrlyRate.ToString() + "\r\n" +
+                "Tax Threshold: " + employee.TaxWithThresholdFlag.ToString() + "\r\n" +
+                "Gross Pay: " + payGrossCalculated.ToString() + "\r\n" +
+                "Tax: " + taxCalculated.ToString() + "\r\n" +
+                "Net Pay: " + payNetCalculated.ToString() + "\r\n" +
+                "Superannuation: " + superCalculated.ToString();
+
+            return detail;
         }
- }
+    }
 
 
 }

@@ -9,6 +9,9 @@
         private decimal[] taxRatesA;
         private decimal[] taxRatesB;
 
+
+
+
         /// <summary>
         /// Calculate tax With tax threshold
         /// </summary>
