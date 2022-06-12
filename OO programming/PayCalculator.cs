@@ -11,39 +11,74 @@
 
         // init variables that are used in the constructor
         private decimal hourlyRate;
-        private int hoursWorked;
+        private decimal hoursWorked;
 
         // init the gross pay variable
         private decimal grossPay;
 
+        // init superannution internal variable.
+        private decimal superannuation;
+        /// <summary>
+        /// Constructor for PayCalculator
+        /// </summary>
+        /// <param name="hourlyRate"></param>
+        /// <param name="hoursWorked"></param>
         public PayCalculator(decimal hourlyRate, int hoursWorked)
         {
             HourlyRate = hourlyRate;
             HoursWorked = hoursWorked;
+            this.calculateGrossPay();
+            this.calculateSuperannuation();
         }
-
-        public decimal HourlyRate { get => hourlyRate; set => hourlyRate = value; }
-        public int HoursWorked { get => hoursWorked; set => hoursWorked = value; }
+        /// <summary>
+        /// Hourly rate of pay
+        /// </summary>
+        protected decimal HourlyRate { get => hourlyRate; set => hourlyRate = value; }
+        /// <summary>
+        /// Number of hrs worked in a week
+        /// </summary>
+        protected decimal HoursWorked { get => hoursWorked; set => hoursWorked = value; }
+        /// <summary>
+        /// Superannuation value (only available after being calculated
+        /// </summary>
+        protected decimal Superannuation { get => superannuation; set => superannuation = value; }
 
 
         /// <summary>
         /// Calculate and return Gross pay amount
         /// </summary>
         /// <returns>decimal</returns>
-        public decimal calculateGrossPay()
+        private decimal calculateGrossPay()
         {
-            
-            return HourlyRate * HoursWorked;
+            grossPay =  HourlyRate * HoursWorked;
+            return grossPay;
         }
-
+        /// <summary>
+        /// return the Gross Pay
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetGrossPay()
+        {
+          
+            return grossPay;
+        }
 
         /// <summary>
         /// calculate and return the superannuation amount
         /// </summary>
         /// <returns>decimal</returns>
-        public decimal calculateSuperannuation()
+        private decimal calculateSuperannuation()
         {
-            return grossPay * superRate;  //calculate and return superannuation
+            Superannuation = grossPay * superRate;  
+            return Superannuation;  
+        }
+        /// <summary>
+        /// return the superannuation
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetSuperannuation()
+        {
+            return Superannuation;
         }
     }
 }

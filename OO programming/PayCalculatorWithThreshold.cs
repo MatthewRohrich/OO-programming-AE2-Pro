@@ -9,6 +9,15 @@
         private decimal[] taxRatesA;
         private decimal[] taxRatesB;
 
+        /// <summary>
+        /// Constructor inherited from the base class  
+        /// </summary>
+        /// <param name="hourlyRate"></param>
+        /// <param name="hoursWorked"></param>
+        public PayCalculatorWithThreshold(decimal hourlyRate, int hoursWorked) : base(hourlyRate, hoursWorked)
+        {
+        }
+
 
 
 

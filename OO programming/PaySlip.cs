@@ -22,31 +22,68 @@ namespace OO_programming
 
 
 
+        /// <summary>
+        /// Employee object that this payslip applies to
+        /// </summary>
         public Employee Employee { get => employee; set => employee = value; }
+        /// <summary>
+        /// How many hrs worked this week
+        /// </summary>
         public int HrsWorked { get => hrsWorked; set => hrsWorked = value; }
+        /// <summary>
+        /// Week of the year
+        /// </summary>
         public int WeekNumber { get => weekNumber; set => weekNumber = value; }
         public Employee SubmittedBy { get => submittedBy; set => submittedBy = value; }
+        /// <summary>
+        /// Date that this payslip was submitted
+        /// </summary>
         public DateTime SubmittedDate { get => submittedDate; set => submittedDate = value; }
+        /// <summary>
+        /// Time that this payslip was submitted
+        /// </summary>
         public DateTime SubmittedTime { get => submittedTime; set => submittedTime = value; }
+        /// <summary>
+        /// Manager who approved this payslip
+        /// </summary>
         public Manager ApprovedBy { get => approvedBy; set => approvedBy = value; }
+        /// <summary>
+        /// Date this payslip was approved
+        /// </summary>
         public DateTime ApprovedDate { get => approvedDate; set => approvedDate = value; }
+        /// <summary>
+        /// Gross Pay (worked hrs x hourly payrate)
+        /// </summary>
         public decimal PayGrossCalculated { get => payGrossCalculated; set => payGrossCalculated = value; }
+        /// <summary>
+        /// Tax amount to be subtracted from Gross pay
+        /// </summary>
         public decimal TaxCalculated { get => taxCalculated; set => taxCalculated = value; }
+        /// <summary>
+        /// Superannuation amount
+        /// </summary>
         public decimal SuperCalculated { get => superCalculated; set => superCalculated = value; }
+        /// <summary>
+        /// Net pay after tax has been removed
+        /// </summary>
         public decimal PayNetCalculated { get => payNetCalculated; set => payNetCalculated = value; }
 
+        /// <summary>
+        /// Return a summary of the payslip as a string
+        /// </summary>
+        /// <returns></returns>
         public string PaySummary()
         {
             string detail =
                 "Employee ID: " + employee.EmployeeId + "\r\n" +
                 "Name: " + employee.FirstName + " " + employee.LastName + "\r\n" +
                 "Hrs Worked: " + hrsWorked + "\r\n" +
-                "Hourly Rate: " + employee.HrlyRate.ToString() + "\r\n" +
+                "Hourly Rate: $" + employee.HrlyRate.ToString() + "\r\n" +
                 "Tax Threshold: " + employee.TaxThresholdFlag.ToString() + "\r\n" +
-                "Gross Pay: " + payGrossCalculated.ToString() + "\r\n" +
-                "Tax: " + taxCalculated.ToString() + "\r\n" +
-                "Net Pay: " + payNetCalculated.ToString() + "\r\n" +
-                "Superannuation: " + superCalculated.ToString();
+                "Gross Pay: $" + payGrossCalculated.ToString() + "\r\n" +
+                "Tax: $" + taxCalculated.ToString() + "\r\n" +
+                "Net Pay: $" + payNetCalculated.ToString() + "\r\n" +
+                "Superannuation: $" + superCalculated.ToString();
 
             return detail;
         }

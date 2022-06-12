@@ -100,11 +100,15 @@ namespace OO_programming
                     SubmittedDate = DateTime.Now,
                     SubmittedTime = DateTime.Now,
                     ApprovedBy = myBoss,
-                    ApprovedDate = DateTime.Now,
-                    PayGrossCalculated = new PayCalculator(int.Parse(tbHrsWorked.Text), employeesList[lbEmployees.SelectedIndex].HrlyRate)
+                    ApprovedDate = DateTime.Now
                 };
 
+
+
                 // TODO: calculate the pay
+                PayCalculator payCalc = new PayCalculator(int.Parse(tbHrsWorked.Text), employeesList[lbEmployees.SelectedIndex].HrlyRate);
+                paySlip.PayGrossCalculated = payCalc.GetGrossPay();
+                paySlip.SuperCalculated = payCalc.GetSuperannuation();
 
                 // populate the payment summary screen
                 tbPaymentSummary.Text = paySlip.PaySummary();
