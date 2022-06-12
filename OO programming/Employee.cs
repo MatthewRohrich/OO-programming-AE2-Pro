@@ -1,7 +1,7 @@
 ﻿namespace OO_programming
 {
     /// <summary>
-    /// Employee details
+    /// Employee class holds all the employee fields
     /// </summary>
     public class Employee
     {
