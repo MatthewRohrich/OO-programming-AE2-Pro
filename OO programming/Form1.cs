@@ -37,7 +37,7 @@ namespace OO_programming
 
             // load the employees from file into a list
             LoadEmployees(employeesList);
-            
+
 
             // add the employees to the form listbox
             foreach (Employee employee in employeesList)
@@ -58,8 +58,8 @@ namespace OO_programming
 
             //foreach (ArrayList taxRate in taxRatesListNoThreshold)
             //{
-                
-                
+
+
             //    foreach (decimal taxItem in taxRate)
             //    {
             //        MessageBox.Show(taxItem.ToString());
@@ -82,7 +82,7 @@ namespace OO_programming
             }
             else {
                 Manager myBoss = new Manager(8, "Matthew", "Rohrich", 55, "Y", "I have the power");
-                
+
                 //create the payslip here with raw data
                 paySlip = new PaySlip
                 {
@@ -93,14 +93,15 @@ namespace OO_programming
                     SubmittedDate = DateTime.Now,
                     SubmittedTime = DateTime.Now,
                     ApprovedBy = myBoss,
-                    ApprovedDate = DateTime.Now 
+                    ApprovedDate = DateTime.Now
                 };
 
                 // calculate the pay
                 // populate the payslip 
                 tbPaymentSummary.Text = paySlip.PaySummary();
-                
+
                 MessageBox.Show(lbIndex.ToString());
+                btnSavePaySummary.Visible = true;
             }
         }
 
@@ -111,7 +112,16 @@ namespace OO_programming
             // File naming convention: Pay_<full name>_<datetimenow>.csv
             // Data fields expected - EmployeeId, Full Name, Hours Worked, Hourly Rate, Tax Threshold, Gross Pay, Tax, Net Pay, Superannuation
 
-        }
+            //something went wrong and the save button is visible when it shouldn't be
+            if (paySlip == null)
+            {
+
+                MessageBox.Show("Please choose an employee and calculate their pay before trying to save");
+                return;
+            }
+            MessageBox.Show("you clicked save with a valid record loaded");
+        }   
+
 
         /// <summary>
         /// read the employees from from a file into an ArrayList
@@ -177,8 +187,8 @@ namespace OO_programming
 
                 // need to be in 4 arrays to match the 4 columns 
 
-                ArrayList arrHrlyLow = new ArrayList();
-                ArrayList arrHrlyHigh = new ArrayList();
+                ArrayList arrPayLow = new ArrayList();
+                ArrayList arrPayHigh = new ArrayList();
                 ArrayList arrTaxRateA = new ArrayList();
                 ArrayList arrTaxRateB = new ArrayList();
 
@@ -186,8 +196,8 @@ namespace OO_programming
                 foreach (var rate in rates)
                 {
 
-                    arrHrlyLow.Add(rate.HrlyIndexLow);
-                    arrHrlyHigh.Add(rate.HrlyIndexHigh);
+                    arrPayLow.Add(rate.HrlyIndexLow);
+                    arrPayHigh.Add(rate.HrlyIndexHigh);
                     arrTaxRateA.Add(rate.TaxRateA);
                     arrTaxRateB.Add(rate.TaxRateB);
 
@@ -196,8 +206,8 @@ namespace OO_programming
                 };
                 // merge the columns to a single array
                 ArrayList taxRate = new ArrayList();
-                taxRateList.Add(arrHrlyLow); 
-                taxRateList.Add(arrHrlyHigh);
+                taxRateList.Add(arrPayLow); 
+                taxRateList.Add(arrPayHigh);
                 taxRateList.Add(arrTaxRateA);
                 taxRateList.Add(arrTaxRateB);
 

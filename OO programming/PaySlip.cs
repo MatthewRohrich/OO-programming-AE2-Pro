@@ -37,7 +37,9 @@ namespace OO_programming
 
         public string PaySummary()
         {
-            string detail = employee.ToString() + ":\r\n" +
+            string detail =
+                "Employee ID: " + employee.EmployeeId + "\r\n" +
+                "Name: " + employee.FirstName + " " + employee.LastName + "\r\n" +
                 "Hrs Worked: " + hrsWorked + "\r\n" +
                 "Hourly Rate: " + employee.HrlyRate.ToString() + "\r\n" +
                 "Tax Threshold: " + employee.TaxWithThresholdFlag.ToString() + "\r\n" +
