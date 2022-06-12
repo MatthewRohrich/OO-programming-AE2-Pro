@@ -233,8 +233,8 @@ namespace OO_programming
                 foreach (var rate in rates)
                 {
 
-                    arrPayLow.Add(rate.HrlyIndexLow);
-                    arrPayHigh.Add(rate.HrlyIndexHigh);
+                    arrPayLow.Add(rate.WeeklyPayLow);
+                    arrPayHigh.Add(rate.WeeklyPayHigh);
                     arrTaxRateA.Add(rate.TaxRateA);
                     arrTaxRateB.Add(rate.TaxRateB);
 
