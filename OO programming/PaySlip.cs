@@ -34,17 +34,20 @@ namespace OO_programming
         /// Week of the year
         /// </summary>
         public int WeekNumber { get => weekNumber; set => weekNumber = value; }
+        /// <summary>
+        /// Employeee who submitted the Timesheet
+        /// </summary>
         public Employee SubmittedBy { get => submittedBy; set => submittedBy = value; }
         /// <summary>
-        /// Date that this payslip was submitted
+        /// Date that the timesheet was submitted
         /// </summary>
         public DateTime SubmittedDate { get => submittedDate; set => submittedDate = value; }
         /// <summary>
-        /// Time that this payslip was submitted
+        /// Time that this timesheet was submitted
         /// </summary>
         public DateTime SubmittedTime { get => submittedTime; set => submittedTime = value; }
         /// <summary>
-        /// Manager who approved this payslip
+        /// Manager who approved the timesheet
         /// </summary>
         public Manager ApprovedBy { get => approvedBy; set => approvedBy = value; }
         /// <summary>
