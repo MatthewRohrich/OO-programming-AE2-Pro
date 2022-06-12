@@ -80,14 +80,21 @@ namespace OO_programming
             {
                 MessageBox.Show("please select an Employee");
             }
-            else {
-                Manager myBoss = new Manager(8, "Matthew", "Rohrich", 55, "Y", "I have the power");
+            else if (int.Parse(tbHrsWorked.Text) <= 0 || int.Parse(tbHrsWorked.Text)  > 40)
+            {
+                MessageBox.Show("Work hrs must be greater than 0 and cannot exceed 40hrs");
+            }
+            else
+            { 
+            
+
+                Manager myBoss = new Manager(8, "Matthew", "Rohrich", 38, "Y", "I have the power");
 
                 //create the payslip here with raw data
                 paySlip = new PaySlip
                 {
                     Employee = employeesList[lbEmployees.SelectedIndex],
-                    HrsWorked = 36,
+                    HrsWorked = int.Parse(tbHrsWorked.Text),
                     WeekNumber = 18,
                     SubmittedBy = employeesList[lbEmployees.SelectedIndex],
                     SubmittedDate = DateTime.Now,
@@ -96,11 +103,12 @@ namespace OO_programming
                     ApprovedDate = DateTime.Now
                 };
 
-                // calculate the pay
-                // populate the payslip 
+                // TODO: calculate the pay
+
+                // populate the payment summary screen
                 tbPaymentSummary.Text = paySlip.PaySummary();
 
-                MessageBox.Show(lbIndex.ToString());
+                //now is a good time to display the button so the payslip can be saved
                 btnSavePaySummary.Visible = true;
             }
         }
@@ -119,7 +127,10 @@ namespace OO_programming
                 MessageBox.Show("Please choose an employee and calculate their pay before trying to save");
                 return;
             }
-            MessageBox.Show("you clicked save with a valid record loaded");
+            
+            //MessageBox.Show("you clicked save with a valid record loaded");
+
+
         }   
 
 
