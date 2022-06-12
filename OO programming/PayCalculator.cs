@@ -16,7 +16,12 @@
         // init the gross pay variable
         private decimal grossPay;
 
-        // init superannution internal variable.
+        /// <summary>
+        /// calculated tax amount
+        /// </summary>
+        protected decimal calculatedTax;
+
+        // init superannution variable.
         private decimal superannuation;
         /// <summary>
         /// Constructor for PayCalculator
@@ -79,6 +84,17 @@
         public decimal GetSuperannuation()
         {
             return Superannuation;
+        }
+        /// <summary>
+        /// calculate the tax on the gross pay
+        /// </summary>
+        /// <param name="taxRateA"></param>
+        /// <param name="taxRateB"></param>
+        /// <returns></returns>
+        public decimal calculateTax(decimal taxRateA, decimal taxRateB)
+        {
+            calculatedTax = taxRateA * (grossPay + 0.99m) - taxRateB; 
+            return calculatedTax;
         }
     }
 }
