@@ -15,7 +15,7 @@
             this.FirstName = firstName;
             this.LastName = lastName;
             this.HrlyRate = hrlyRate;
-            this.TaxWithThresholdFlag = taxWithThresholdFlag;
+            this.TaxThresholdFlag = taxWithThresholdFlag;
             this.Permissions = permissions;
 
         }

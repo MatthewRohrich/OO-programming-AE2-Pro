@@ -78,9 +78,9 @@ namespace OO_programming
             int lbIndex = (lbEmployees.SelectedIndex);
             if (lbIndex == -1)
             {
-                MessageBox.Show("please select an Employee");
+                MessageBox.Show($"please select an Employee {DateTime.Now:s}");
             }
-            else if (int.Parse(tbHrsWorked.Text) <= 0 || int.Parse(tbHrsWorked.Text)  > 40)
+            else if (int.Parse(tbHrsWorked.Text) < 0 || int.Parse(tbHrsWorked.Text)  > 40)
             {
                 MessageBox.Show("Work hrs must be greater than 0 and cannot exceed 40hrs");
             }
@@ -100,7 +100,8 @@ namespace OO_programming
                     SubmittedDate = DateTime.Now,
                     SubmittedTime = DateTime.Now,
                     ApprovedBy = myBoss,
-                    ApprovedDate = DateTime.Now
+                    ApprovedDate = DateTime.Now,
+                    PayGrossCalculated = new PayCalculator(int.Parse(tbHrsWorked.Text), employeesList[lbEmployees.SelectedIndex].HrlyRate)
                 };
 
                 // TODO: calculate the pay
@@ -110,6 +111,8 @@ namespace OO_programming
 
                 //now is a good time to display the button so the payslip can be saved
                 btnSavePaySummary.Visible = true;
+                btnSavePaySummary.Text = "Save *";
+
             }
         }
 
@@ -127,10 +130,29 @@ namespace OO_programming
                 MessageBox.Show("Please choose an employee and calculate their pay before trying to save");
                 return;
             }
+
             
-            //MessageBox.Show("you clicked save with a valid record loaded");
 
+            // generate the payslip filename - no spaces in the filename
+            string saveFileName = 
+                $"Pay-{paySlip.Employee.EmployeeId}" +
+                $"-{(paySlip.Employee.Fullname).Replace(" ","-")}" +  
+                $"-{DateTime.Now:yyyy-MM-dd-HH-mm-ss}.csv";
+            string saveFilePath = $"..\\..\\..\\{saveFileName}";
+            var records = new List<PaySlip> {
+                paySlip
+            };
 
+         
+            // save the payslip object to csv file
+            using (var writer = new StreamWriter(saveFilePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.Context.RegisterClassMap<PaySlipMap>();
+                csv.WriteRecords(records);
+            }
+
+            btnSavePaySummary.Text = "Save";
         }   
 
 
@@ -164,7 +186,7 @@ namespace OO_programming
                                 person.FirstName,
                                 person.LastName,
                                 person.HrlyRate,
-                                person.TaxWithThresholdFlag));
+                                person.TaxThresholdFlag));
                 };
 
             }

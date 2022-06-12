@@ -16,20 +16,24 @@
         // init the gross pay variable
         private decimal grossPay;
 
-
+        public PayCalculator(decimal hourlyRate, int hoursWorked)
+        {
+            HourlyRate = hourlyRate;
+            HoursWorked = hoursWorked;
+        }
 
         public decimal HourlyRate { get => hourlyRate; set => hourlyRate = value; }
         public int HoursWorked { get => hoursWorked; set => hoursWorked = value; }
 
 
         /// <summary>
-        /// Calculate and return pay amount
+        /// Calculate and return Gross pay amount
         /// </summary>
         /// <returns>decimal</returns>
-        public decimal calculatePay(decimal tax)
+        public decimal calculateGrossPay()
         {
             
-            return grossPay - tax;  // calculate the Net pay
+            return HourlyRate * HoursWorked;
         }
 
 

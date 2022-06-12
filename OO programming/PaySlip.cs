@@ -42,7 +42,7 @@ namespace OO_programming
                 "Name: " + employee.FirstName + " " + employee.LastName + "\r\n" +
                 "Hrs Worked: " + hrsWorked + "\r\n" +
                 "Hourly Rate: " + employee.HrlyRate.ToString() + "\r\n" +
-                "Tax Threshold: " + employee.TaxWithThresholdFlag.ToString() + "\r\n" +
+                "Tax Threshold: " + employee.TaxThresholdFlag.ToString() + "\r\n" +
                 "Gross Pay: " + payGrossCalculated.ToString() + "\r\n" +
                 "Tax: " + taxCalculated.ToString() + "\r\n" +
                 "Net Pay: " + payNetCalculated.ToString() + "\r\n" +
