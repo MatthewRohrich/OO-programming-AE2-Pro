@@ -51,8 +51,12 @@ namespace OO_programming
             //PayCalculator myTestCalc = new PayCalculator();
             //MessageBox.Show(myTestCalc.calculatePay(34).ToString());
 
-            ArrayList taxRatesListNoThreshold = new ArrayList();
-            LoadTaxRates(taxRatesListNoThreshold, "..\\..\\..\\taxrate-nothreshold.csv");
+            TaxRate taxRatesListNoThreshold = new TaxRate();
+            taxRatesListNoThreshold = LoadTaxRates("..\\..\\..\\taxrate-nothreshold.csv");
+
+            TaxRate taxRatesListWithThreshold = new TaxRate();
+            taxRatesListWithThreshold = LoadTaxRates("..\\..\\..\\taxrate-withthreshold.csv");
+
             //MessageBox.Show("how many entries :" + taxRatesListNoThreshold.Count);
             //MessageBox.Show("how many entries :" + (taxRatesListNoThreshold.ToArray()).Count());
 
@@ -106,9 +110,15 @@ namespace OO_programming
 
 
                 // TODO: calculate the pay
-                PayCalculator payCalc = new PayCalculator(int.Parse(tbHrsWorked.Text), employeesList[lbEmployees.SelectedIndex].HrlyRate);
-                paySlip.PayGrossCalculated = payCalc.GetGrossPay();
-                paySlip.SuperCalculated = payCalc.GetSuperannuation();
+                PayCalculator payCalc = new PayCalculator(
+                    int.Parse(tbHrsWorked.Text), 
+                    employeesList[lbEmployees.SelectedIndex].HrlyRate,
+                    employeesList[lbEmployees.SelectedIndex].TaxThresholdFlag
+                    );
+                paySlip.PayGrossCalculated = payCalc.calculateGrossPay();
+                paySlip.SuperCalculated = payCalc.calculateSuperannuation();
+                paySlip.TaxCalculated = payCalc.CalculateTax(0.19m, 68.3462m);
+                paySlip.PayNetCalculated = payCalc.CalculateNetPay();
 
                 // populate the payment summary screen
                 tbPaymentSummary.Text = paySlip.PaySummary();
@@ -199,10 +209,9 @@ namespace OO_programming
         /// <summary>
         /// Load the TaxRates from file
         /// </summary>
-        /// <param name="taxRateList"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private static ArrayList LoadTaxRates(ArrayList taxRateList, string fileName )
+        private static TaxRate LoadTaxRates(string fileName )
         {
 
             // setup the csv config to deal with no headers
@@ -224,31 +233,33 @@ namespace OO_programming
 
                 // need to be in 4 arrays to match the 4 columns 
 
-                ArrayList arrPayLow = new ArrayList();
-                ArrayList arrPayHigh = new ArrayList();
-                ArrayList arrTaxRateA = new ArrayList();
-                ArrayList arrTaxRateB = new ArrayList();
+                //ArrayList arrPayLow = new ArrayList();
+                //ArrayList arrPayHigh = new ArrayList();
+                //ArrayList arrTaxRateA = new ArrayList();
+                //ArrayList arrTaxRateB = new ArrayList();
 
-                // add each column to a seperate array
-                foreach (var rate in rates)
-                {
+                //// add each column to a seperate array
+                //foreach (var rate in rates)
+                //{
 
-                    arrPayLow.Add(rate.WeeklyPayLow);
-                    arrPayHigh.Add(rate.WeeklyPayHigh);
-                    arrTaxRateA.Add(rate.TaxRateA);
-                    arrTaxRateB.Add(rate.TaxRateB);
+                //    arrPayLow.Add(rate.WeeklyPayLow);
+                //    arrPayHigh.Add(rate.WeeklyPayHigh);
+                //    arrTaxRateA.Add(rate.TaxRateA);
+                //    arrTaxRateB.Add(rate.TaxRateB);
 
 
-                    
-                };
-                // merge the columns to a single array
-                ArrayList taxRate = new ArrayList();
-                taxRateList.Add(arrPayLow); 
-                taxRateList.Add(arrPayHigh);
-                taxRateList.Add(arrTaxRateA);
-                taxRateList.Add(arrTaxRateB);
 
-                return taxRateList;
+                //};
+                //// merge the columns to a single array
+                //ArrayList taxRate = new ArrayList();
+                //taxRateList.Add(arrPayLow); 
+                //taxRateList.Add(arrPayHigh);
+                //taxRateList.Add(arrTaxRateA);
+                //taxRateList.Add(arrTaxRateB);
+
+                //return taxRateList;
+
+                return (TaxRate)rates;
             }
 
         }
