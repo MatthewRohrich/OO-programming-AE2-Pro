@@ -24,8 +24,13 @@ namespace OO_programming
         //declare an empty payslip oject
         PaySlip paySlip;
 
-        public Employee Manager { get; private set; }
+        // declare the two tax rate lists
+        ArrayList taxRatesListNoThreshold;
+        ArrayList taxRatesListWithThreshold;
 
+        /// <summary>
+        /// The main form of the application;
+        /// </summary>
         public frmPayCalc()
         {
             InitializeComponent();
@@ -47,28 +52,12 @@ namespace OO_programming
             }
 
 
-
-            //PayCalculator myTestCalc = new PayCalculator();
-            //MessageBox.Show(myTestCalc.calculatePay(34).ToString());
-
-            TaxRate taxRatesListNoThreshold = new TaxRate();
+            // load the tax rates files for both types of rates
+            
             taxRatesListNoThreshold = LoadTaxRates("..\\..\\..\\taxrate-nothreshold.csv");
-
-            TaxRate taxRatesListWithThreshold = new TaxRate();
+                        
             taxRatesListWithThreshold = LoadTaxRates("..\\..\\..\\taxrate-withthreshold.csv");
 
-            //MessageBox.Show("how many entries :" + taxRatesListNoThreshold.Count);
-            //MessageBox.Show("how many entries :" + (taxRatesListNoThreshold.ToArray()).Count());
-
-            //foreach (ArrayList taxRate in taxRatesListNoThreshold)
-            //{
-
-
-            //    foreach (decimal taxItem in taxRate)
-            //    {
-            //        MessageBox.Show(taxItem.ToString());
-            //    }
-            //}
         }
 
 
@@ -108,17 +97,36 @@ namespace OO_programming
                 };
 
 
+                if (employeesList[lbEmployees.SelectedIndex].TaxThresholdFlag =="N")
+                {
+                    // calculate the pay without tax free threshold
+                    PayCalculatorNoThreshold payCalc = new PayCalculatorNoThreshold(
+                        int.Parse(tbHrsWorked.Text),
+                        employeesList[lbEmployees.SelectedIndex].HrlyRate,
+                        taxRatesListNoThreshold
+                        );
+                    paySlip.PayGrossCalculated = payCalc.calculateGrossPay();
+                    paySlip.SuperCalculated = payCalc.calculateSuperannuation();
+                    paySlip.TaxCalculated = payCalc.CalculateTax();
+                    paySlip.PayNetCalculated = payCalc.CalculateNetPay();
+                }
+                else
+                {
+                    // calculate the pay with tax free threshold
+                    PayCalculatorWithThreshold payCalc = new PayCalculatorWithThreshold(
+                        int.Parse(tbHrsWorked.Text),
+                        employeesList[lbEmployees.SelectedIndex].HrlyRate,
+                        taxRatesListWithThreshold
+                        );
+                    paySlip.PayGrossCalculated = payCalc.calculateGrossPay();
+                    paySlip.SuperCalculated = payCalc.calculateSuperannuation();
+                    paySlip.TaxCalculated = payCalc.CalculateTax();
+                    paySlip.PayNetCalculated = payCalc.CalculateNetPay();
+                }
 
-                // TODO: calculate the pay
-                PayCalculator payCalc = new PayCalculator(
-                    int.Parse(tbHrsWorked.Text), 
-                    employeesList[lbEmployees.SelectedIndex].HrlyRate,
-                    employeesList[lbEmployees.SelectedIndex].TaxThresholdFlag
-                    );
-                paySlip.PayGrossCalculated = payCalc.calculateGrossPay();
-                paySlip.SuperCalculated = payCalc.calculateSuperannuation();
-                paySlip.TaxCalculated = payCalc.CalculateTax(0.19m, 68.3462m);
-                paySlip.PayNetCalculated = payCalc.CalculateNetPay();
+
+                
+                
 
                 // populate the payment summary screen
                 tbPaymentSummary.Text = paySlip.PaySummary();
@@ -129,6 +137,7 @@ namespace OO_programming
 
             }
         }
+
 
         private void btnSavePaySummary_Click(object sender, EventArgs e)
         {
@@ -211,7 +220,7 @@ namespace OO_programming
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        private static TaxRate LoadTaxRates(string fileName )
+        private static ArrayList LoadTaxRates(string fileName )
         {
 
             // setup the csv config to deal with no headers
@@ -231,35 +240,14 @@ namespace OO_programming
                 //csv.Context.RegisterClassMap<EmployeeMap>();
                 var rates = csv.GetRecords<TaxRate>();
 
-                // need to be in 4 arrays to match the 4 columns 
+                ArrayList taxRateList = new ArrayList();
 
-                //ArrayList arrPayLow = new ArrayList();
-                //ArrayList arrPayHigh = new ArrayList();
-                //ArrayList arrTaxRateA = new ArrayList();
-                //ArrayList arrTaxRateB = new ArrayList();
-
-                //// add each column to a seperate array
-                //foreach (var rate in rates)
-                //{
-
-                //    arrPayLow.Add(rate.WeeklyPayLow);
-                //    arrPayHigh.Add(rate.WeeklyPayHigh);
-                //    arrTaxRateA.Add(rate.TaxRateA);
-                //    arrTaxRateB.Add(rate.TaxRateB);
-
-
-
-                //};
-                //// merge the columns to a single array
-                //ArrayList taxRate = new ArrayList();
-                //taxRateList.Add(arrPayLow); 
-                //taxRateList.Add(arrPayHigh);
-                //taxRateList.Add(arrTaxRateA);
-                //taxRateList.Add(arrTaxRateB);
-
-                //return taxRateList;
-
-                return (TaxRate)rates;
+                foreach (var taxRate in rates)
+                {
+                    taxRateList.Add(taxRate);
+                    //MessageBox.Show(taxRate.WeeklyPayLow.ToString());
+                }
+                return taxRateList;
             }
 
         }

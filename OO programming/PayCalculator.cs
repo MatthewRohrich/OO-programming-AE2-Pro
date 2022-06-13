@@ -42,30 +42,13 @@ namespace OO_programming
         /// </summary>
         /// <param name="hourlyRate"></param>
         /// <param name="hoursWorked"></param>
-        /// <param name="taxThreshold"></param>
-        public PayCalculator(decimal hourlyRate, int hoursWorked, string taxThreshold)
+        public PayCalculator(decimal hourlyRate, int hoursWorked)
         {
             HourlyRate = hourlyRate;
             HoursWorked = hoursWorked;
-            TaxThreshold = taxThreshold;
-            this.loadTaxTables(TaxThreshold);
         }
 
-        private void loadTaxTables(string taxThreshold)
-        {
-            if (taxThreshold == "Y")
-            {
-                //load the tax tables with tax free threshold
-            }
-            else if (taxThreshold == "N")
-            {
-                //load the tax tables without tax free threshold
-            }
-            else
-            {
-                
-            }
-        }
+
 
 
 
@@ -106,26 +89,7 @@ namespace OO_programming
             Superannuation = grossPay * superRate;  
             return Superannuation;  
         }
-       /// <summary>
-        /// calculate the tax on the gross pay
-        /// </summary>
-        /// <param name="taxRateA"></param>
-        /// <param name="taxRateB"></param>
-        /// <returns></returns>
-        public decimal CalculateTax(decimal taxRateA, decimal taxRateB)
-        {
-            calculatedTax = taxRateA * (grossPay + 0.99m) - taxRateB; 
-            return calculatedTax;
-        }
-        /// <summary>
-        /// calculate the netPay of the employee 
-        /// </summary>
-        /// <returns></returns>
-        public decimal CalculateNetPay()
-        {
-            netPay = grossPay - calculatedTax;
-            return netPay;
-        }
+
 
  
     }
